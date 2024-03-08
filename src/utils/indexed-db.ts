@@ -24,7 +24,7 @@ export const idbGet = async (key: string) => {
   return (await dbPromise).get('projects', key);
 }
 
-export const idbSet = async (key: string, val: {
+export const idbSet = async (val: {
   name: string;
   rows: number[]
 }) => {

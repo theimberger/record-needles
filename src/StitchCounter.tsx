@@ -1,16 +1,15 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { idbDel, idbGet, idbKeys, idbSet, idbAll } from './utils/indexed-db'
+import { idbDel, idbGet, idbSet, idbAll } from './utils/indexed-db'
 
 const StitchCounter = () => {
   const [name, setName] = useState('Your Project Name')
   const [rowStitches, setCount] = useState(10)
-  const [rows, setRows]: [number[], Dispatch<SetStateAction<never[]>>] = useState([]);
+  const [rows, setRows]: [number[], any] = useState([]);
 
   useEffect(() => {
     const asyncEffect = async () => {
-      const projects = await idbAll('projects');
-      console.log(projects)
+      const projects = await idbAll();
       if (projects.length) {
         const project = projects[0];
         setName(project.name);
@@ -23,7 +22,7 @@ const StitchCounter = () => {
   const addRow = async () => {
     const newRowArray = [...rows, rowStitches];
     setRows(newRowArray);
-    await idbSet(name, { name, rows: newRowArray });
+    await idbSet({ name, rows: newRowArray });
   }
 
   const updateName = async (newName: string) => {
@@ -31,7 +30,7 @@ const StitchCounter = () => {
     if (existing) {
       await idbDel(name);
     }
-    await idbSet(newName, { name: newName, rows });
+    await idbSet({ name: newName, rows });
     setName(newName);
   }
   
