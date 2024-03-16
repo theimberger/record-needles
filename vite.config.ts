@@ -8,10 +8,10 @@ export default defineConfig({
     registerType: 'autoUpdate',
     manifest: {
       "name": "Record Needles - a simple stitch counter",
-      "short_name": "Record Needles",
+      "short_name": "Needles",
       "start_url": ".",
       "display": "standalone",
-      "background_color": "#fff",
+      "background_color": "#335555",
       "description": "A stitch counting app.",
       "icons": [],
       "related_applications": []
