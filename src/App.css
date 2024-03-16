@@ -21,7 +21,7 @@ header {
   text-align: center;
   border-bottom: 1px solid #f9f9f9;
   background-color: #223333;
-  height: 100px;
+  height: calc(100px + env(safe-area-inset-top));
 }
 
 input {
@@ -168,7 +168,7 @@ input[type=number] {
   header {
     flex-direction: row;
     justify-content: space-between;
-    height: 70px;
+    height: calc(70px + env(safe-area-inset-top));
   }
 
   .project-name-input {
