@@ -83,6 +83,10 @@ input {
   text-align: center;
 }
 
+.project-controls input:focus {
+  outline: none;
+}
+
 .project-name-input {
   border: 0;
   font-size: 1.5em;
@@ -147,6 +151,17 @@ footer {
   gap: 20px;
   padding: 0 10px;
   margin-bottom: 5px;
+}
+
+.stitches-row__undo {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 0 10px;
+  border: 1px solid #f9f9f9;
+  color: #f9f9f9;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
 }
 
 .stitch-box {

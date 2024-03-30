@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
+
 import './App.css'
 import { idbDel, idbGet, idbSet, idbAll } from './utils/indexed-db'
+import imgUrl from './assets/arrow.png'
 
 const StitchCounter = () => {
   const [name, setName] = useState('Your Project Name')
@@ -21,6 +23,12 @@ const StitchCounter = () => {
 
   const addRow = async () => {
     const newRowArray = [...rows, rowStitches];
+    setRows(newRowArray);
+    await idbSet({ name, rows: newRowArray });
+  }
+
+  const removeRow = async () => {
+    const newRowArray = rows.slice(0, -1);
     setRows(newRowArray);
     await idbSet({ name, rows: newRowArray });
   }
@@ -53,13 +61,13 @@ const StitchCounter = () => {
             className='project-controls__button-minus'
             onClick={() => setCount(rowStitches - 1)}
           >
-            <img src='src/assets/arrow.png' alt='-' />
+            <img src={imgUrl} alt='-' />
           </button>
           <input
             type='text'
             inputMode='decimal'
             value={Number.isNaN(rowStitches) ? '' : rowStitches}
-            style={{ width: `${String(rowStitches).length}ch` }}
+            style={{ width: `${String(rowStitches).length + 1}ch` }}
             onChange={handleNumberChange}
             onBlur={() => Number.isNaN(rowStitches) && setCount(0)}
           />
@@ -67,7 +75,7 @@ const StitchCounter = () => {
             className='project-controls__button-plus'
             onClick={() => setCount(rowStitches + 1)}
           >
-            <img src='src/assets/arrow.png' alt='+' />
+            <img src={imgUrl} alt='+' />
           </button>
           <button className='project-controls__button-add-row' onClick={addRow}>Add</button>
         </div>
@@ -76,6 +84,7 @@ const StitchCounter = () => {
         {rows.map((stitches: number, i: number) => {
           runningStitches += stitches;
           const range = new Array(stitches).fill(0);
+          const isLastRow = i === rows.length - 1;
           return (
             <div key={`${i}-stitch-row`} className='stitches-row'>
               <div className='stitches-boxes'>
@@ -84,7 +93,15 @@ const StitchCounter = () => {
                 ))}
               </div>
               <div className='stitches-label'>
-                #{i + 1} — {stitches}{i === rows.length - 1 && ` (${runningStitches})`}
+                #{i + 1} — {stitches}{isLastRow && ` (${runningStitches})`}
+                { isLastRow && (
+                  <span
+                    className='stitches-row__undo'
+                    onClick={removeRow}
+                  >
+                    undo
+                  </span>
+                ) }
               </div>
             </div>
           )
