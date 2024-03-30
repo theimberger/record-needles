@@ -53,12 +53,15 @@ input {
   border: 0;
 }
 
-.project-controls__button-minus {
-  color: #ff5a5a;
+.project-controls__button-minus img,
+.project-controls__button-plus img {
+  filter: invert(1);
+  width: 20px;
 }
 
-.project-controls__button-plus {
-  color: #5aff5a;
+.project-controls__button-plus img {
+  margin-top: 5px;
+  transform: scaleY(-1);
 }
 
 .project-controls__button-add-row {

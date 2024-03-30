@@ -33,7 +33,10 @@ const StitchCounter = () => {
     await idbSet({ name: newName, rows });
     setName(newName);
   }
-  
+
+  const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCount(parseInt(e.target.value));
+  }
 
   let runningStitches = 0;
 
@@ -50,19 +53,21 @@ const StitchCounter = () => {
             className='project-controls__button-minus'
             onClick={() => setCount(rowStitches - 1)}
           >
-            ▽
+            <img src='src/assets/arrow.png' alt='-' />
           </button>
           <input
-            type='number'
-            value={rowStitches}
+            type='text'
+            inputMode='decimal'
+            value={Number.isNaN(rowStitches) ? '' : rowStitches}
             style={{ width: `${String(rowStitches).length}ch` }}
-            onChange={(e) => setCount(Number(e.target.value))}
+            onChange={handleNumberChange}
+            onBlur={() => Number.isNaN(rowStitches) && setCount(0)}
           />
           <button
             className='project-controls__button-plus'
             onClick={() => setCount(rowStitches + 1)}
           >
-            △
+            <img src='src/assets/arrow.png' alt='+' />
           </button>
           <button className='project-controls__button-add-row' onClick={addRow}>Add</button>
         </div>
