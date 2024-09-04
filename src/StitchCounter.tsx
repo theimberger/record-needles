@@ -2,24 +2,24 @@ import { useEffect, useState } from 'react'
 
 import './App.css'
 import { idbDel, idbGet, idbSet, idbAll } from './utils/indexed-db'
+import { ProjectType } from './utils/types'
+
 import imgUrl from './assets/arrow.png'
 
-const StitchCounter = () => {
+interface StitchCounterProps {
+  returnToProjectSelection: () => void;
+  projectData: ProjectType;
+}
+
+const StitchCounter = ({ returnToProjectSelection, projectData }: StitchCounterProps) => {
   const [name, setName] = useState('Your Project Name')
   const [rowStitches, setCount] = useState(10)
   const [rows, setRows]: [number[], any] = useState([]);
 
   useEffect(() => {
-    const asyncEffect = async () => {
-      const projects = await idbAll();
-      if (projects.length) {
-        const project = projects[0];
-        setName(project.name);
-        setRows(project.rows);
-      }
-    };
-    asyncEffect();
-  }, []);
+    setName(projectData.name);
+    setRows(projectData.rows);
+  }, [projectData]);
 
   const addRow = async () => {
     const newRowArray = [...rows, rowStitches];
@@ -80,7 +80,7 @@ const StitchCounter = () => {
           <button className='project-controls__button-add-row' onClick={addRow}>Add</button>
         </div>
       </header>
-      <main>
+      <main className='main--counter'>
         {rows.map((stitches: number, i: number) => {
           runningStitches += stitches;
           const range = new Array(stitches).fill(0);

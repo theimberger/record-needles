@@ -101,13 +101,22 @@ input {
 }
 
 main {
-  justify-content: flex-start;
+  min-height: calc(100vh - 200px);
+  display: flex;
   align-items: center;
+}
+
+.main--counter {
+  justify-content: flex-start;
   flex-direction: column-reverse;
   box-sizing: border-box;
   padding: 10px;
-  min-height: calc(100vh - 200px);
-  display: flex;
+}
+
+.main--selector {
+  font-family: "Lato", sans-serif;
+  color: #f9f9f9;
+  flex-direction: column;
 }
 
 footer {
@@ -192,4 +201,33 @@ input[type=number] {
   .project-name-input {
     text-align: left;
   }
+}
+
+.project-selection__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 2em 0;
+}
+
+.project-selection__list li {
+  width: 50vw;
+  margin: 1em 0;
+  padding: .5em;
+  border: 1px solid #f9f9f9;
+  border-radius: 10px;
+  font-size: 1.5em;
+  text-align: center;
+}
+
+.main--selector h3 {
+  margin-top: 3em;
+  text-align: center;
+}
+
+.main--selector form input,
+.main--selector form button {
+  font-size: 1.2em;
+  padding: .5em;
+  border-radius: 10px;
+  border: 0;
 }
