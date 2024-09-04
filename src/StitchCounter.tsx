@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 import './App.css'
-import { idbDel, idbGet, idbSet, idbAll } from './utils/indexed-db'
+import { idbDel, idbGet, idbSet } from './utils/indexed-db'
 import { ProjectType } from './utils/types'
 
 import imgUrl from './assets/arrow.png'
@@ -14,7 +14,7 @@ interface StitchCounterProps {
 const StitchCounter = ({ returnToProjectSelection, projectData }: StitchCounterProps) => {
   const [name, setName] = useState('Your Project Name')
   const [rowStitches, setCount] = useState(10)
-  const [rows, setRows]: [number[], any] = useState([]);
+  const [rows, setRows] = useState<number[]>([]);
 
   useEffect(() => {
     setName(projectData.name);
@@ -111,6 +111,10 @@ const StitchCounter = ({ returnToProjectSelection, projectData }: StitchCounterP
         <div className='footer-div'>
           for drew <br/>
           ❤️
+          <div
+            className='footer-back'
+            onClick={returnToProjectSelection}
+          >{'← projects'}</div>
         </div>
       </footer>
     </>
